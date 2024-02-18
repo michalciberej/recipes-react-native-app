@@ -1,21 +1,16 @@
-import { TextInput, View } from 'react-native';
+import { TextInput, Text, View } from 'react-native';
 import { useRouter } from 'expo-router';
 
 import styles from './SeachBar.style';
 import { useState } from 'react';
 
 const SearchBar = () => {
-  const [value, setValue] = useState<string>('retard');
+  const [value, setValue] = useState<string>('yep');
   const router = useRouter();
 
   return (
-    <View>
-      <TextInput
-        style={styles.searchBar}
-        placeholder='chicken'
-        onChangeText={setValue}
-        value={value}
-      />
+    <View style={styles.container}>
+      <Text style={styles.searchBar}>yey</Text>
     </View>
   );
 };
