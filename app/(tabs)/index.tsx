@@ -1,69 +1,69 @@
-import { useEffect, useState } from 'react';
 import {
-  TextInput,
   View,
   ScrollView,
   SafeAreaView,
-  Image,
   Text,
-  FlatList,
   ActivityIndicator,
+  Image,
+  TextInput,
 } from 'react-native';
 import { useRouter } from 'expo-router';
-import axios from 'axios';
 
 import { COLORS, SIZES } from '@/constants/THEME';
 import { SearchBar } from 'react-native-screens';
 import RecipeCard from '@/components/cards/RecipeCard';
+import useFetch from '@/hooks/useFetch';
+import image from '../../assets/images/homepage-image.jpg';
 
-import { Recipe } from '@/types';
-
-const recipes: Recipe[] = [];
+import { TestRecipe } from '@/types';
+import { useState } from 'react';
 
 const Home = () => {
-  const [data, setData] = useState<Recipe[]>([]);
-  const [isLoading, setLoading] = useState(false);
+  const { data, isLoading, error, refetch } = useFetch('test');
   const router = useRouter();
-
-  const getRandomRecipes = async () => {
-    setLoading(true);
-    try {
-      // const res = await axios.get(
-      //   `https://api.spoonacular.com/recipes/random?number=10&apiKey=${process.env.API_KEY}`
-      // );
-      // setData(res.data.recipes);
-      for (let i = 0; i < 10; i++) {
-        recipes.push({
-          title: 'food',
-          instructions: 'test',
-          image: 'https://spoonacular.com/recipeImages/642276-556x370.jpg',
-          id: i,
-        });
-      }
-      setData(recipes);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    getRandomRecipes();
-    console.log(data);
-  }, []);
+  const [value, setValue] = useState('hahahah');
 
   return (
     <SafeAreaView
       style={{
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         backgroundColor: COLORS.background,
-        paddingTop: 60,
+        paddingTop: 45,
         width: '100%',
       }}>
-      <SearchBar />
+      <View
+        style={{
+          flex: 1,
+          width: '100%',
+          padding: SIZES.medium,
+          gap: SIZES.medium,
+        }}>
+        <TextInput
+          placeholder='chicken'
+          value={value}
+          onChangeText={setValue}
+          style={{
+            width: '100%',
+            height: SIZES.xxLarge,
+            paddingHorizontal: SIZES.medium,
+            color: 'black',
+            borderRadius: SIZES.medium,
+            backgroundColor: COLORS.orange,
+          }}
+        />
+        {/* <SearchBar /> */}
+        <Image
+          source={image}
+          style={{
+            width: '100%',
+            height: 200,
+            objectFit: 'cover',
+            borderRadius: SIZES.xLarge,
+          }}
+        />
+      </View>
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={{ width: '100%' }}>
@@ -73,11 +73,16 @@ const Home = () => {
             flexDirection: 'row',
             flexWrap: 'wrap',
             justifyContent: 'center',
-            borderTopEndRadius: SIZES.medium,
-            borderTopStartRadius: SIZES.medium,
+            backgroundColor: COLORS.background,
+            borderTopEndRadius: SIZES.xxLarge,
+            borderTopStartRadius: SIZES.xxLarge,
             padding: SIZES.medium,
             gap: SIZES.medium,
             marginTop: 400,
+            borderTopWidth: 1,
+            borderLeftWidth: 1,
+            borderRightWidth: 1,
+            borderColor: 'gray',
           }}>
           <Text style={{ fontSize: SIZES.xLarge }}>
             Maybe want to try something new?
@@ -85,11 +90,13 @@ const Home = () => {
           {isLoading ? (
             <ActivityIndicator />
           ) : (
-            data.map((recipe) => (
+            data.map((recipe: TestRecipe) => (
               <RecipeCard
                 key={recipe.id}
                 title={recipe.title}
-                image={recipe.image}></RecipeCard>
+                image={recipe.image}
+                time={recipe.time}
+              />
             ))
           )}
         </View>
