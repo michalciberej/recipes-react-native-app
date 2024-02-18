@@ -3,8 +3,9 @@ import { useRoute } from '@react-navigation/native';
 import { usePathname, useRouter } from 'expo-router';
 
 import NavBtn from '../buttons/NavBtn';
+import styles from './Tabs.style';
 
-import { COLORS, SIZES } from '@/constants/THEME';
+import { COLORS } from '@/constants/THEME';
 
 const TabsContainer = () => {
   const route = useRoute();
@@ -12,15 +13,7 @@ const TabsContainer = () => {
   const path = usePathname();
 
   return (
-    <View
-      style={{
-        backgroundColor: COLORS.background,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        width: '100%',
-        paddingHorizontal: 80,
-        paddingVertical: 10,
-      }}>
+    <View style={styles.container}>
       <NavBtn
         icon='home'
         size={40}
