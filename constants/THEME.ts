@@ -4,6 +4,7 @@ const COLORS = {
   primary: '#fdb669',
   secondary: '#d4aefc',
   accent: '#fd63a6',
+  orange: '#ffe0c6',
 };
 
 const SIZES = {
