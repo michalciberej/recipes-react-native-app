@@ -1,21 +1,31 @@
-import { TouchableOpacity, Image, Text } from 'react-native';
+import { TouchableOpacity, Image, Text, View } from 'react-native';
+import Icon from 'react-native-vector-icons/AntDesign';
 
 import styles from './RecipeCard.style';
 
 interface RecipeCardProps {
   title?: string;
   image?: string;
+  time?: string;
 }
 
-const RecipeCard: React.FC<RecipeCardProps> = ({ title, image }) => {
+const RecipeCard: React.FC<RecipeCardProps> = ({ title, image, time }) => {
   return (
-    <TouchableOpacity style={styles.button}>
-      <Image
-        src={image}
-        style={styles.image}
-      />
-      <Text style={styles.title}>{title}</Text>
-    </TouchableOpacity>
+    <View style={[styles.container, styles.shadow]}>
+      <TouchableOpacity style={styles.button}>
+        <Image
+          src={image}
+          style={styles.image}
+        />
+      </TouchableOpacity>
+      <View style={styles.title}>
+        <Text>{title}</Text>
+      </View>
+      <View style={styles.time}>
+        <Icon name='clockcircleo' />
+        <Text>{time}</Text>
+      </View>
+    </View>
   );
 };
 
